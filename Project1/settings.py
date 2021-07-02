@@ -16,8 +16,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env_list = {}
-print("os.path :", os.path)
-print("BASE_DIR :", BASE_DIR)
 local_env = open(os.path.join(BASE_DIR, '.env'))
 
 while True:

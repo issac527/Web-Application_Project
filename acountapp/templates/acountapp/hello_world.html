@@ -1,9 +1,32 @@
 {% extends 'base.html' %}
-
+{# ----------------------- DISPLAY 속성 ----------------------- #}
+{# 부모의 크기를 그대로 가져오는게 block의 특징 #}
+{# inline 너비는 설정가능하나 높이는 설정 불가능 #}
+{# inline-block 높이와 너비를 설정 가능 #}
+{# None 소스코드는 있으나 시각화되지 않음 #}
+    {# Visibility : Hidden 시각화되지는 않았으나 자리는 차지하고 있음 #}
+{# ----------------------------------------------------------- #}
 {% block content %}
+
+    <style>
+
+    .testing
+    {
+        background-color : yellow;
+        margin : 1rem;
+        height : 48px;
+        width : 48px;
+        border-radius : 2rem;
+    }
+    </style>
 
     <div style = "height: 20rem; background-color: aqua; margin: 2rem; border-radius: 2rem">
         <h1>TEST</h1>
+        <div class = 'testing' style = "display:block">block</div>
+        <div class = 'testing' style = "display:inline">inline</div>
+        <div class = 'testing' style = "display:inline-block">inline-block</div>
+        <div class = 'testing' style = "display:none">none</div>
+        <div class = 'testing'>Default</div>
     </div>
 
 {% endblock %}

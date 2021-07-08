@@ -14,10 +14,11 @@
         {#값을 보내줄 주소를 적어줌#}
         <form action="/acount/hw/" method = "post">
             {% csrf_token %}
-            <button type="button" class="px-5 btn btn-warning rounded-pill ">푸시 보탄</button>
+            <input type="text", name = "hello_world_input">
+            <input type="submit" class="px-5 btn btn-warning rounded-pill">
         </form>
 
-        <h3>{{ text }}</h3>
+        <h3>{{ Hello_world_output.text }}</h3>
     </div>
 
 {% endblock %}

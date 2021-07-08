@@ -11,7 +11,13 @@
     <div style = "margin: 2rem; text-align: center">
         <h1>METHOD</h1>
 
-    <h3>{{ text }}</h3>
+        {#값을 보내줄 주소를 적어줌#}
+        <form action="/acount/hw/" method = "post">
+            {% csrf_token %}
+            <button type="button" class="px-5 btn btn-warning ">푸시 보탄</button>
+        </form>
+
+        <h3>{{ text }}</h3>
     </div>
 
 {% endblock %}

@@ -25,3 +25,11 @@ def hello_world(request):
         HelloWorld_list = HelloWorld.objects.all()
         return render(request, 'acountapp/hello_world.html',
                       context={"HelloWorld_list": HelloWorld_list})
+
+
+class AccountCreateView(CreateView):
+    model = User
+    form_class = UserCreationForm()
+    # 클래스 내에서 reverse시 reverse_lazy로 사용
+    success_url = reverse_lazy("acountapp:hw")
+    template_name = "accountapp/create.html"

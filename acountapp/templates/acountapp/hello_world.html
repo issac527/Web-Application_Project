@@ -12,11 +12,14 @@
         <h1>METHOD</h1>
 
         {#값을 보내줄 주소를 적어줌#}
-        <form action="/acount/hw/" method = "post">
+        <form action = "/acount/hw/", method="post">
             {% csrf_token %}
-            <button type="button" class="px-5 btn btn-warning rounded-pill ">푸시 보탄</button>
+            <input type="text" name = "hwt">
+            <input type="submit" class="px-5 btn btn-outline-warning">
         </form>
-        <h3>{{ text }}</h3>
+        {% for i in HelloWorld_list%}
+        <H3>{{ i.text }}</H3>
+        {% endfor %}
     </div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load bootstrap4 %}
 {% block content %}
     
     <div class = "text-center">
@@ -9,8 +9,11 @@
         <div>
             <form action = "{% url "acountapp:create" %}" method="post">
                 {% csrf_token %}
-                {{ form }}
-                <input type = "submit", class = "btn btn-dark">
+                {% bootstrap_form form %}
+                <div class = "m-5">
+                    <input type = "submit"
+                           class = "btn btn-outline-waring rounded-pill px-5">
+                </div>
             </form>
         </div>
     </div>

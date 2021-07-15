@@ -14,4 +14,31 @@
 
     {#Default css link#}
     <link rel = "stylesheet" type="text/css" href="{% static "base.css"%}">
+
+    {#Default font link#}
+    <style>
+        {# font-fmaily : font이름을 설정 #}
+        {# local : 컴퓨터 내에 폰트가 있으면 폰트 그대로 사용 #}
+        {# url : 컴퓨터 내에 없다면 경로에 있는 폰트에게 요청 #}
+        @font-face {
+            font-family: 'NanumSquareR';
+            src: local('NanumSquareR'),
+            url("{% static 'fonts/NanumSquareR.otf' %}") format("opentype");
+        }
+        @font-face {
+            font-family: 'NanumSquareEB';
+            src: local('NanumSquareEB'),
+            url("{% static 'fonts/NanumSquareEB.otf' %}") format("opentype");
+        }
+        @font-face {
+            font-family: 'NanumSquareB';
+            src: local('NanumSquareB'),
+            url("{% static 'fonts/NanumSquareB.otf' %}") format("opentype");
+        }
+        @font-face {
+            font-family: 'NanumSquareL';
+            src: local('NanumSquareL'),
+            url("{% static 'fonts/NanumSquareL.otf' %}") format("opentype");
+        }
+    </style>
 </head>

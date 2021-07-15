@@ -22,3 +22,8 @@
     color: #999999;
     font-family: 'Tourney', cursive;
 }
+
+.mw-500 {
+    max-width: 500px;
+    margin: 1rem 1.5rem;
+}

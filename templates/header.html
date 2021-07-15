@@ -20,6 +20,11 @@
         </span>
         {% else %}
         <span>
+            <a href = "{% url 'acountapp:detail' pk=user.pk %}">
+                MyPage
+            </a>
+        </span>
+        <span>
             <a href = "{% url 'acountapp:logout' %}">
                 Logout
             </a>

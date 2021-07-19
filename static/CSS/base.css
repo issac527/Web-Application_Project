@@ -1,6 +1,8 @@
 /*CSS 경로*/
+
 .IT_HEADER_LOGO
 {
+    text-decoration:none;
     color: #FCA205;
     font-family: 'Tourney', cursive;
     margin: 2rem 0;

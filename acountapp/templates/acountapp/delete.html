@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{# 회원 탈퇴 여부를 알아야 하기 때문에 form은 그대로 놔둬야함#}
+    <div class = "text-center mw-500 m-auto">
+        <div>
+            <h2>안녕히 가시고~</h2>
+        </div>
+        <div>
+            <form action = "{% url "acountapp:delete" pk=target_user.pk %}"  method="post">
+                {% csrf_token %}
+                <div class = "m-5">
+                    <input type = "submit"
+                           class = "btn btn-danger rounded-pill px-5">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

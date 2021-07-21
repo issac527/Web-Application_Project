@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
@@ -56,18 +56,18 @@ class AccountUpdateView(UpdateView):
     template_name = 'acountapp/update.html'
 
     def get(self, request, *agrs, **kwargs):
-        # 유저가 로그인되어 있다면 부모 클래스 실행
-        if request.user.is_authenticated:
+        # 유저가 로그인되어 있다면 부모 클래스 실행 // 유저가 해당 유저가 맞는지 확인
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().get(request, *agrs, **kwargs)
         else:
-            return HttpResponseRedirect(reverse("acountapp:login"))
+            return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
         # 유저가 로그인되어 있다면 부모 클래스 실행
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse("acountapp:login"))
+            return HttpResponseForbidden()
 
 
 class AccountDeleteView(DeleteView):
@@ -78,14 +78,14 @@ class AccountDeleteView(DeleteView):
 
     def get(self, request, *agrs, **kwargs):
         # 유저가 로그인되어 있다면 부모 클래스 실행
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().get(request, *agrs, **kwargs)
         else:
-            return HttpResponseRedirect(reverse("acountapp:login"))
+            return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
         # 유저가 로그인되어 있다면 부모 클래스 실행
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse("acountapp:login"))
+            return HttpResponseForbidden()

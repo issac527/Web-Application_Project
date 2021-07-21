@@ -8,9 +8,12 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 # Create your views here.
+from acountapp.decorators import account_ownership_required
 from acountapp.forms import AccountCreationForm
 from acountapp.models import HelloWorld
 from django.urls import reverse, reverse_lazy
+
+has_ownership = [login_required, account_ownership_required]
 
 
 @login_required(login_url=reverse_lazy('acountapp:login'))
@@ -51,9 +54,8 @@ class AccountDetailView(DetailView):
     template_name = "acountapp/detail.html"
 
 
-# 로그인 사용자 맞는지 확인해줌
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
@@ -62,8 +64,8 @@ class AccountUpdateView(UpdateView):
     template_name = 'acountapp/update.html'
 
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'

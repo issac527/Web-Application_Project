@@ -7,7 +7,9 @@
             <h2>Create Profile</h2>
         </div>
         <div>
-            <form action = "{% url "profile:create" %}" method="post">
+            <form action = "{% url "profile:create" %}"
+                  enctype="multipart/form-data"
+                  method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <div class = "m-5">

@@ -41,6 +41,7 @@
     width: 12rem;
     height: 12rem;
     border-radius: 20rem;
+    /* 비율 관련 태그 / 1:1 비율 유지 */
     object-fit: cover;
 }
 

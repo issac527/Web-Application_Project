@@ -4,10 +4,10 @@
 
     <div class = "text-center mw-500 m-auto">
         <div>
-            <h2>Create Profile</h2>
+            <h2>Update Profile</h2>
         </div>
         <div>
-            <form action = "{% url "profile:create" %}"
+            <form action = "{% url "profile:update" pk=target_profile.pk %}"
 {#                파일이나 이미지를 전송할 때 사용#}
                   enctype="multipart/form-data"
                   method="post">

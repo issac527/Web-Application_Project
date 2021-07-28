@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 
@@ -20,13 +21,16 @@ from profileapp.models import Profile
 class ProfileCreateView(CreateView):
     model = Profile
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('acountapp:hw')
+    # success_url = reverse_lazy('acountapp:hw')
     template_name = 'profileapp/create.html'
 
     # 유저 직접할당
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("acountapp:detail", kwargs={'pk': self.object.user.pk})
 
 
 # 나만 수정해야하므로, 커스텀 데꼬레이션 만들어줌
@@ -38,7 +42,11 @@ class ProfileUpdateView(UpdateView):
     form_class = ProfileCreationForm
     # HTML에서 불러오는 이름
     context_object_name = 'target_profile'
-    # 업데이트 후 어디로 갈지 정해줌
-    success_url = reverse_lazy('acountapp:hw')
+
     # 어떤 템플릿에서 사용할지 정해줌
     template_name = 'profileapp/update.html'
+
+    # 업데이트 후 어디로 갈지 정해줌
+    # success_url = reverse_lazy('acountapp:hw')
+    def get_success_url(self):
+        return reverse("acountapp:detail", kwargs={'pk': self.object.user.pk})

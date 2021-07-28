@@ -44,8 +44,11 @@ class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm
     # 클래스 내에서 reverse시 reverse_lazy로 사용
-    success_url = reverse_lazy("acountapp:login")
+    #success_url = reverse_lazy("acountapp:login")
     template_name = "acountapp/create.html"
+
+    def get_success_url(self):
+        return reverse("acountapp:detail", kwargs={'pk': self.object.pk})
 
 
 class AccountDetailView(DetailView):
@@ -60,8 +63,11 @@ class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
     context_object_name = 'target_user'
-    success_url = reverse_lazy('acountapp:hw')
+    #success_url = reverse_lazy('acountapp:hw')
     template_name = 'acountapp/update.html'
+
+    def get_success_url(self):
+        return reverse("acountapp:detail", kwargs={'pk': self.object.pk})
 
 
 @method_decorator(has_ownership, 'get')

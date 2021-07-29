@@ -49,3 +49,19 @@
 {
     font-family: 'NanumSquareB', cursive;
 }
+
+.round_button
+{
+    color: black;
+    text-decoration:none;
+    /*그림자의 위치(0 0) 그림자의 크기(3px) 그림자의 색깔(black)*/
+    box-shadow: 0 0 3px black;
+    border-radius: 20rem;
+    padding: 0.3rem;
+}
+
+/* 마우스가 올라가 있을 때 스타일 설정*/
+.round_button:hover
+{
+    color:gray;
+}

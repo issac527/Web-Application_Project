@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('acount/', include('acountapp.urls')),
     path('profiles/', include('profileapp.urls')),
+    path('articles/', include('articleapp.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 # 파일경로 설정

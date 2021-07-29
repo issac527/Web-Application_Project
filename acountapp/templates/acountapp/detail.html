@@ -25,17 +25,14 @@
         </div>
         {% endif %}
         <div>
-            {#가입일자#}
-            {{ target_user.date_joined }}
-        </div>
-        <div>
-              <a href="{% url "acountapp:update" pk=target_user.pk %}">
-                  Update Info
+              {# x방향으로 마진 1만큼 줌줌줌 #}
+              <a href="{% url "acountapp:update" pk=target_user.pk %}"
+              class="material-icons round_button mx-1">
+                  settings
               </a>
-        </div>
-        <div>
-              <a href="{% url "acountapp:delete" pk=target_user.pk %}">
-                  Say Good Bye?
+              <a href="{% url "acountapp:delete" pk=target_user.pk %}"
+              class="material-icons round_button mx-1">
+                  close
               </a>
         </div>
         {% endif %}

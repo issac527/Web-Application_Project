@@ -282,4 +282,15 @@ let magicGrid = new MagicGrid({
   useMin: true
 });
 
+var masonrys = document.getElementsByName("img") // 매직그리드를 호출하는 html 전부를 의미
+
+for(let i = 0;masonrys.length; i++)
+{
+  // 이미지를 load 할때 마다 fcuntion 실행
+  masonrys[i].addEventListener('load', function(){
+    magicGrid.positionItems(); // 배치를 다시 해줌
+  }, false)
+}
+
 magicGrid.listen();
+

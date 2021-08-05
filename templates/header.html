@@ -4,7 +4,11 @@
         <h1><a class = "IT_LOGO" href = "{% url 'acountapp:hw' %}" >ISSAC TOAST</a></h1>
     </div>
     <div class = "IT_HEADER_MENU">
-        <span>nav1</span>
+        <span>
+            <a href="{% url 'articleapp:list' %}">
+                Articles
+            </a>
+        </span>
         <span>nav2</span>
 
         {% if not user.is_authenticated %}

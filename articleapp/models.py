@@ -4,10 +4,14 @@ from django.db import models
 # Create your models here.
 from django.db.models import CASCADE
 
+from projectapp.models import Project
+
 
 class Article(models.Model):
     writer = models.ForeignKey(User, on_delete=models.SET_NULL,
                                related_name='article', null=True) # 연결하는 이름 (User.article) << 이런식으로
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL,
+                                related_name='article', null=True)
     title = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='article/', null=True)
     content = models.TextField(null = True)

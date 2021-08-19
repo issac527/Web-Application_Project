@@ -8,10 +8,14 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 # Create your views here.
+from django.views.generic.list import MultipleObjectMixin
+
 from acountapp.decorators import account_ownership_required
 from acountapp.forms import AccountCreationForm
 from acountapp.models import HelloWorld
 from django.urls import reverse, reverse_lazy
+
+from articleapp.models import Article
 
 has_ownership = [login_required, account_ownership_required]
 
@@ -51,10 +55,17 @@ class AccountCreateView(CreateView):
         return reverse("acountapp:detail", kwargs={'pk': self.object.pk})
 
 
-class AccountDetailView(DetailView):
+class AccountDetailView(DetailView, MultipleObjectMixin):
     model = User
     context_object_name = 'target_user'
     template_name = "acountapp/detail.html"
+
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # 현재 접속된 유저의 Article 데이터를 필터링하여 article_list에 넣어줌
+        article_list = Article.objects.filter(writer=self.object)
+        return super().get_context_data(object_list=article_list, **kwargs)
 
 
 @method_decorator(has_ownership, 'get')

@@ -6,9 +6,9 @@
         {% if user == target_user %}
         {% if target_user.profile%}
         <div>
-            <img src = "{{ target_user.profile.image.url }}"
-                     class = "profile_image m-4"
-                     alt = "profile image">
+            <img src="{{ target_user.profile.image.url }}"
+                 class="profile_image m-4"
+                 alt="profile image">
             <h2 class = "NNS_B">
                 {{ target_user.profile.nickname }}
                 {# edit가 아이콘 이름, 즉 태그안에 내용을 확인하여 아이콘을 찾아서 가지고옴 #}
@@ -40,6 +40,10 @@
             Login Please
         </div>
         {% endif %}
+    </div>
+
+    <div>
+        {% include 'snippets/list_fragment.html' with article_list=object_list%}
     </div>
 
 {% endblock %}

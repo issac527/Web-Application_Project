@@ -16,3 +16,6 @@ class Article(models.Model):
     image = models.ImageField(upload_to='article/', null=True)
     content = models.TextField(null = True)
     created_at = models.DateField(auto_now_add=True) # 객체 생성 시 그 시간으로 자동 할당
+
+    # 좋아요 필드
+    like = models.IntegerField(default=0)

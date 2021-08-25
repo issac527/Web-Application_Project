@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -10,6 +12,21 @@ from articleapp.models import Article
 from likeapp.models import LikeRecord
 from django.contrib import messages
 
+# 하나가 성공하더라고 과정 중 실패한다면 연산이 반영되지 않음
+@transaction.atomic
+def db_transaction(user, article):
+
+    likeRecord = LikeRecord.objects.filter(user=user,
+                                           article=article)
+
+    article.like += 1
+    article.save()
+
+    if likeRecord.exists():
+        raise ValidationError("좋아요가 이미 존재합니다.") # 개발자가 확인하는 에러 메시지
+    else:
+        LikeRecord(user=user, article=article).save()
+
 @method_decorator(login_required, 'get')
 class LikeArticleView(RedirectView):
 
@@ -18,21 +35,13 @@ class LikeArticleView(RedirectView):
         user = request.user
         article = Article.objects.get(pk=kwargs['article_pk'])
 
-        likeRecord = LikeRecord.objects.filter(user=user,
-                                               article=article)
-
-        # 좋아요 기록이 존재 시 좋아요 과정없이 해당 페이지로 이동
-        if likeRecord.exists():
-            # 좋아요가 반영되지 않은 경우
+        try:
+            db_transaction(user, article)
+            messages.add_message(request, messages.SUCCESS, "좋아요가 반영되었습니다.")
+        except ValidationError:
             messages.add_message(request, messages.ERROR, "좋아요는 한번만 가능합니다.")
-            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk':kwargs['article_pk']}))
-        else:
-            LikeRecord(user=user, article=article).save()
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['article_pk']}))
 
-        article.like += 1
-        article.save()
-        # 좋아요가 반영된 경우
-        messages.add_message(request, messages.SUCCESS, "좋아요가 반영되었습니다.")
         return super().get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):

@@ -8,6 +8,7 @@ from django.views.generic import RedirectView
 from django.urls import reverse
 from articleapp.models import Article
 from likeapp.models import LikeRecord
+from django.contrib import messages
 
 @method_decorator(login_required, 'get')
 class LikeArticleView(RedirectView):
@@ -22,16 +23,16 @@ class LikeArticleView(RedirectView):
 
         # 좋아요 기록이 존재 시 좋아요 과정없이 해당 페이지로 이동
         if likeRecord.exists():
-            # if article.like > 0:
-            #     article.like -= 1
-            #     article.save()
+            # 좋아요가 반영되지 않은 경우
+            messages.add_message(request, messages.ERROR, "좋아요는 한번만 가능합니다.")
             return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk':kwargs['article_pk']}))
         else:
             LikeRecord(user=user, article=article).save()
 
         article.like += 1
         article.save()
-
+        # 좋아요가 반영된 경우
+        messages.add_message(request, messages.SUCCESS, "좋아요가 반영되었습니다.")
         return super().get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):

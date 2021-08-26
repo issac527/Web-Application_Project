@@ -11,7 +11,7 @@ class Article(models.Model):
     writer = models.ForeignKey(User, on_delete=models.SET_NULL,
                                related_name='article', null=True) # 연결하는 이름 (User.article) << 이런식으로
     project = models.ForeignKey(Project, on_delete=models.SET_NULL,
-                                related_name='article', null=True)
+                                related_name='article', null=True, blank=True) # DB에서 Null값 가능, 입력값 빈값 쌉가능
     title = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='article/', null=True)
     content = models.TextField(null = True)

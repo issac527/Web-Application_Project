@@ -2,21 +2,28 @@
 {% load bootstrap4 %}
 {% block content %}
 
-    <div class = "text-center mw-500 m-auto">
-        <div class="m-5">
-            <h2>Create Article</h2>
-        </div>
-        <div>
-{#           이미지 파일을 받아오기 때문에 enctype 해줘야됨#}
-            <form action = "{% url "articleapp:create" %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <div class = "m-5">
-                    <input type = "submit"
-                           class = "btn btn-outline-waring rounded-pill px-5">
-                </div>
-            </form>
-        </div>
+{# Article create에서만 사용하므로 여기서 선언 #}
+<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+
+<div class = "text-center mw-500 m-auto">
+    <div class="m-5">
+        <h2>Create Article</h2>
     </div>
+    <div>
+{#           이미지 파일을 받아오기 때문에 enctype 해줘야됨#}
+        <form action = "{% url "articleapp:create" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class = "m-5">
+                <input type = "submit"
+                       class = "btn btn-outline-waring rounded-pill px-5">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>var editor = new MediumEditor('.editable');</script>
 
 {% endblock %}

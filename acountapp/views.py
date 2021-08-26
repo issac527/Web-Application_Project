@@ -19,30 +19,6 @@ from articleapp.models import Article
 
 has_ownership = [login_required, account_ownership_required]
 
-
-@login_required(login_url=reverse_lazy('acountapp:login'))
-def hello_world(request):
-    # 요청을 보내는 유저가 로그인이 되어있다면 아래 구문 실행
-    if request.method == 'POST':
-
-        temp = request.POST.get("hwt")
-        n_hw = HelloWorld()
-        n_hw.text = temp
-        n_hw.save()
-
-        # 앱기반 라우팅 가능 (url을 직접 적어주지 않고 사용)
-        # 이름을 기반으로 주소로 변환해주는(역추적) 함수 사용
-        return HttpResponseRedirect(reverse("acountapp:hw"))
-
-        # HttpResponseRedirect를 통해 재연결을 해줄거임
-        # return render(request, 'acountapp/hello_world.html',
-        #               context={"HelloWorld_list": HelloWorld_list})
-    else:
-        HelloWorld_list = HelloWorld.objects.all()
-        return render(request, 'acountapp/hello_world.html',
-                      context={"HelloWorld_list": HelloWorld_list})
-
-
 # 누구든 갈 수 있어야 함
 class AccountCreateView(CreateView):
     model = User
@@ -86,5 +62,5 @@ class AccountUpdateView(UpdateView):
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
-    success_url = reverse_lazy("acountapp:hw")
+    success_url = reverse_lazy('articleapp:list')
     template_name = 'acountapp/delete.html'

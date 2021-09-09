@@ -16,34 +16,7 @@ from pathlib import Path
 from django.urls import reverse_lazy
 from django.contrib.messages import constants as messages
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-env_list = {}
-local_env = open(os.path.join(BASE_DIR, '.env'))
-
-while True:
-    line = local_env.readline()
-    if not line:
-        break
-    line = line.replace('\n', '')
-    start = line.find('=')
-    key = line[:start]
-    val = line[start+1:]
-    env_list[key] = val
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env_list['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# 모든 IP에 대해서 접속 허가를 해줌
-ALLOWED_HOSTS = ["*"]
-
-
-# Application definition
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -96,17 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Project1.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation

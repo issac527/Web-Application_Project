@@ -1,19 +1,15 @@
 from .base import *
 
-env_list = {}
-local_env = open(os.path.join(BASE_DIR, '.env'))
 
-while True:
-    line = local_env.readline()
-    if not line:
-        break
-    line = line.replace('\n', '')
-    start = line.find('=')
-    key = line[:start]
-    val = line[start+1:]
-    env_list[key] = val
+def read_secrets(secret_name):
+    file = open('/run/secrets/' + secret_name)
+    secret = file.read()
+    secret = secret.rstrip().lstrip()
+    file.close()
+    return secret
 
-SECRET_KEY = env_list['SECRET_KEY']
+
+SECRET_KEY = read_secrets('DJANGO_SECRET_KEY')
 
 DEBUG = False
 
@@ -28,8 +24,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # mariaDB는 mysql에서 나온 산하DB 개념이라 mysql로 설정
         'NAME': 'issactoast',
-        'USER': 'issactoast',
-        'PASSWORD': 'coramdeo96!',
+        'USER': read_secrets('MARIADB_USER'),
+        'PASSWORD': read_secrets('MARIADB_PASSWORD'),
         'HOST': 'mariadb', # mariadb 컨테이너 이름
         'PORT': '3306', # mariadb 기본 포트 3306
     }
